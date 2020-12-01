@@ -32,9 +32,12 @@ h2 {
 	justify-content: space-around;
 }
 
+#selected {
+	padding: 10px;
+}
+
 .board {
 	display: grid;
-	margin: 20px 0px;
 	grid-template: repeat(var(--r), var(--cell-size)) / repeat(var(--c), var(--cell-size));
 }
 
@@ -42,4 +45,12 @@ h2 {
 	text-align: center;
 	border-style: solid;
 	border-width: 1px;
+}
+
+.cell:hover {
+	background-color: #e0e0e0;
+}
+
+#reset {
+	margin: 15px;
 }
