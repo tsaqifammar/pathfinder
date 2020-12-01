@@ -1,0 +1,45 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body{
+	font-family: 'Lato', sans-serif;
+	font-weight: normal;
+}
+
+:root {
+	--r: 20;
+	--c: 40;
+	--cell-size: calc(0.8*100vw/var(--c));
+}
+
+.container{
+	width: 80%;
+	margin: auto;
+	overflow: hidden;
+	text-align: center;
+}
+
+h2 {
+	padding: 10px 0px;
+}
+
+.navbar {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.board {
+	display: grid;
+	margin: 20px 0px;
+	grid-template: repeat(var(--r), var(--cell-size)) / repeat(var(--c), var(--cell-size));
+}
+
+.cell {
+	text-align: center;
+	border-style: solid;
+	border-width: 1px;
+}
