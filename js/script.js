@@ -1,5 +1,5 @@
 // Grid size (r x c)
-const r = 20, c = 40;
+const r = 18, c = 40;
 var mat = new Array(r*c).fill('_');
 
 // generate html grid

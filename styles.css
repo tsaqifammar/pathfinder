@@ -10,23 +10,27 @@ body{
 }
 
 :root {
-	--r: 20;
+	--r: 18;
 	--c: 40;
 	--cell-size: calc(0.8*100vw/var(--c));
 }
 
-.container{
+p {
+	margin: 0;
+}
+
+.contain{
 	width: 80%;
 	margin: auto;
 	overflow: hidden;
 	text-align: center;
 }
 
-h2 {
+h3 {
 	padding: 10px 0px;
 }
 
-.navbar {
+.tools {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
@@ -44,7 +48,9 @@ h2 {
 .cell {
 	text-align: center;
 	border-style: solid;
+	background-color: white;
 	border-width: 1px;
+	border-color: rgba(0,0,0,0.30);
 }
 
 .cell:hover {
