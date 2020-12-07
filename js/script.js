@@ -5,7 +5,7 @@ var mat = new Array(r*c).fill('_');
 // generate html grid
 var x = "";
 for (let i = 0; i < r*c; i++){
-	x += "<div class=\"cell\" id=\"cell-" + i + "\"> </div>";
+	x += "<div class=\"cell\" id=\"" + i + "\"> </div>";
 }
 document.querySelector(".board").innerHTML = x;
 
@@ -51,6 +51,7 @@ var colors = ['white', 'green', 'red', '#2b2b2b', '#5591f2', 'yellow'];
 var start = -1, end = -2;
 
 var cell = document.getElementsByClassName("cell");
+console.log(cell);
 
 for (let i = 0; i < cell.length; i++){
 	cell[i].addEventListener("mousedown", function(){
@@ -70,6 +71,26 @@ for (let i = 0; i < cell.length; i++){
 			}
 	});
 }
+
+var board = document.querySelector(".board");
+let down = false;
+board.addEventListener('mousedown', function(e) {
+	down = true;
+	board.addEventListener('mouseup', function() {
+		down = false;
+	});
+	board.addEventListener('mouseleave', function() {
+		down = false;
+	});
+
+	board.addEventListener('mouseover', function(e) {
+  	if (down) {
+		if (currentSelected == 3 || currentSelected == 4)
+		modifyWall(e.target.id, currentSelected == 3);
+    }
+  });
+});
+
 
 function updateStart(idx){
 	if (idx !== end){
@@ -103,14 +124,17 @@ function modifyWall(idx, act){
 }
 
 // ------------------------- PATHFINDER -------------------------
-
-function runPathfinder(){
+const timer = ms => new Promise (res => setTimeout(res, ms));
+var sedangBerjalan = false;
+async function runPathfinder(){
+	sedangBerjalan = true;
 	if (start == -1 || end == -2 || runClicked)
 		return;
 	runClicked = true;
 	var q = [];
 	var dist = new Array(r*c).fill(-1);
 	var prev = new Array(r*c).fill(-1);
+	var path = [];
 
 	q.push(start);
 	dist[start] = 0;
@@ -152,21 +176,30 @@ function runPathfinder(){
 			if (kanan == end) break;
 			cell[kanan].style.background = colors[4];
 		}
+		await timer(10);
 	}
 	var prevCur = prev[end];
 	while(prevCur != -1 && prevCur != start){
-		cell[prevCur].style.background = colors['5'];
+		path.push(prevCur);
 		prevCur = prev[prevCur];
 	}
+	for (i = path.length-1; i > -1; i = i-1) {
+		cell[path[i]].style.background = colors['5'];
+		await timer(10);
+	}
+	sedangBerjalan = false
 }
+
 
 // ------------------------- RESET BOARD -------------------------
 
 function resetBoard(){
-	for (let i = 0; i < cell.length; i++){
-		cell[i].style.background = colors[0];
-		mat[i] = '_';
+	if (!sedangBerjalan) {
+		for (let i = 0; i < cell.length; i++){
+			cell[i].style.background = colors[0];
+			mat[i] = '_';
+		}
+		runClicked = false;
+		start = -1, end = -2;
 	}
-	runClicked = false;
-	start = -1, end = -2;
 }
