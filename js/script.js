@@ -79,16 +79,17 @@ board.addEventListener('mousedown', function(e) {
 	board.addEventListener('mouseup', function() {
 		down = false;
 	});
+
 	board.addEventListener('mouseleave', function() {
 		down = false;
 	});
 
 	board.addEventListener('mouseover', function(e) {
-  	if (down) {
-		if (currentSelected == 3 || currentSelected == 4)
-		modifyWall(e.target.id, currentSelected == 3);
-    }
-  });
+		if (down) {
+			if (currentSelected == 3 || currentSelected == 4)
+			modifyWall(e.target.id, currentSelected == 3);
+		}
+  	});
 });
 
 
