@@ -85,9 +85,20 @@ board.addEventListener('mousedown', function(e) {
 	});
 
 	board.addEventListener('mouseover', function(e) {
-		if (down) {
-			if (currentSelected == 3 || currentSelected == 4)
-			modifyWall(e.target.id, currentSelected == 3);
+		if (down && !runClicked) {
+			switch(currentSelected){
+				case 1:
+					updateStart(e.target.id);
+					break;
+				case 2:
+					updateEnd(e.target.id);
+					break;
+				case 3:
+					modifyWall(e.target.id, true);
+					break;
+				case 4:
+					modifyWall(e.target.id, false);
+			}
 		}
   	});
 });
